@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Update User</h1>
+<form [formGroup]="registerform" (ngSubmit)="UpdateUser()">
+    <div mat-dialog-content>
+
+        <mat-form-field>
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+                <mat-option value=''>Select Role</mat-option>
+                <mat-option *ngFor="let item of rolelist" [value]="item.code">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- <section class="example-section">
+            <br>
+            <mat-checkbox   class="example-margin">Is Active</mat-checkbox>
+        </section> -->
+        <div class="form-check form-switch">
+            <input formControlName="isactive" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
+        </div>
+
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" mat-raised-button color="blue" cdkFocusInitial>Save</button>
+        <button mat-raised-button color="blue" mat-dialog-close>Close</button>
+    </div>
+</form>

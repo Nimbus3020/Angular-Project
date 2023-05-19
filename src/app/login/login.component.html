@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="text-center">
+          <fa-icon [icon]="faLock" class="fa-3x"></fa-icon>
+          <h1>Login</h1>
+          <h6>Please enter username & password !!</h6>
+        </div>
+      <form class="example-form" [formGroup]="loginform" (ngSubmit)="proceedlogin()">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Username</label>
+          <input formControlName="id" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text">Enter your username here.</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+          <div id="emailHelp" class="form-text">Enter your password here.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>    
+      </form>
+
+      <div  class="card-footer_text-right">
+        <a routerLink="/register" style="color: white; margin: top 10px;">New user? Click to signup</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
