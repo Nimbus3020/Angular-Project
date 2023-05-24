@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   apiurl='http://localhost:3000/user';
 
   RegisterUser(inputdata:any){
-    return this.http.post(this.apiurl,inputdata)
+    return this.http.post(this.apiurl + '/', inputdata)
   }
   GetUserbyCode(id:any){
     return this.http.get(this.apiurl+'/'+id);
@@ -37,5 +38,35 @@ export class AuthService {
   }
   Getaccessbyrole(role:any,menu:any){
     return this.http.get('http://localhost:3000/roleaccess?role='+role+'&menu='+menu)
+  }
+
+
+  postUser( data: any ){
+    return this.http.post("http://localhost:3000/user",data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+  
+  getUser(){
+    return this.http.get(this.apiurl)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  
+  updateUser(data:any,id: string){
+    return this.http.put(this.apiurl+'/'+id,data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  deleteUser(id : string){
+    return this.http.delete(this.apiurl+'/'+id)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
   }
 }

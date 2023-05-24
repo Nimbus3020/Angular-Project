@@ -26,7 +26,8 @@ label {
 }
 
 .card-footer_text-right{
-    color: ghostwhite;
     position: relative;
-
+    top: 20%;
+    left: 60%;
+    padding: 15px;
 }

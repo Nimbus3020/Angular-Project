@@ -17,6 +17,7 @@ export class LoginComponent {
       sessionStorage.clear();
 
   }
+  
   result: any;
 
   loginform = this.builder.group({

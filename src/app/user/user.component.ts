@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms'
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms'
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,83 +8,141 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdatepopupComponent } from '../updatepopup/updatepopup.component'
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UserModel } from './user.model';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements AfterViewInit {
+export class UserComponent implements OnInit {
 
-  constructor(private builder: FormBuilder, private service: AuthService, private dialog: MatDialog,
-    private toastr:ToastrService,private router: Router) {
-    this.LoadUser();
-  }
-  delete = false;
-  userlist: any;
-  dataSource: any;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  formValue!: FormGroup;
+  userModelObj : UserModel = new UserModel();
+  userData !: any;
+  editId!: any;
 
-  accessdata: any;
+  constructor(private builder: FormBuilder, private authService: AuthService,
+    private router: Router) {}
 
-  ngAfterViewInit(): void {
 
-  }
-  LoadUser() {
-    this.service.Getall().subscribe(res => {
-      this.userlist = res;
-      this.dataSource = new MatTableDataSource(this.userlist);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
-  }
-  displayedColumns: string[] = ['username', 'name', 'email', 'status', 'role', 'action'];
 
-  updateuser(code: any) {
-    this.OpenDialog('1000ms', '600ms', code);
+
+  ngOnInit(): void {
+    this.formValue = this.builder.group({
+      id : [''],
+      name : [''],
+      email: [''],
+      title: [''],
+      department: [''],
+      role: [''],
+      status : [''],
+      password: [''],
+      isactive: this.builder.control(false),
+      position: ['']
+    })
+    this.getAllUsers();
   }
 
-  OpenDialog(enteranimation: any, exitanimation: any, code: string) {
-    const popup = this.dialog.open(UpdatepopupComponent, {
-      enterAnimationDuration: enteranimation,
-      exitAnimationDuration: exitanimation,
-      width: '30%',
-      data: {
-        usercode: code
-      }
-    });
-    popup.afterClosed().subscribe(res => {
-      this.LoadUser();
-    });
+  postUserDetails(){
+    this.userModelObj.id = this.formValue.value.id;
+    this.userModelObj.name = this.formValue.value.name;
+    this.userModelObj.title = this.formValue.value.title;
+    this.userModelObj.password = this.formValue.value.password;
+    this.userModelObj.department = this.formValue.value.department;
+    this.userModelObj.email = this.formValue.value.email;
+    this.userModelObj.status = this.formValue.value.status;
+    this.userModelObj.role = this.formValue.value.role;
+    this.userModelObj.isactive = this.formValue.value.isactive;
+    this.userModelObj.position = this.formValue.value.position;
+
+    this.authService.postUser(this.userModelObj)
+    .subscribe((res: any) => {
+      console.log(res);
+      alert("Loaded..")
+      let ref = document.getElementById("cancel")
+      ref?.click();
+      this.formValue.reset();
+      this.getAllUsers();
+    },
+      (    err: any)=>{
+      alert("Something went wrong");
+    })
+  }
+  getAllUsers(){
+    this.authService.getUser()
+    .subscribe((res: any)=>{
+      console.log(res)
+      this.userData = res;
+    })
+  }
+
+  deleteAuser(row: any){
+    this.authService.deleteUser(row.id)
+    .subscribe((res: any)=>{
+      alert("User Deleted")
+      this.getAllUsers();
+    })
+  }
+
+  onEdit(row: any){
+    this.userModelObj.id = row.id;
+    this.formValue.controls['name'].setValue(row.name);
+    this.formValue.controls['email'].setValue(row.email);
+    this.formValue.controls['password'].setValue(row.password);
+    this.formValue.controls['status'].setValue(row.isactive);
+    this.formValue.controls['title'].setValue(row.title);
+    this.formValue.controls['department'].setValue(row.department);
+    this.formValue.controls['position'].setValue(row.position);
+    this.formValue.controls['role'].setValue(row.role);
+  }
+
+  updateAuser(){
+    // this.userModelObj.id = this.formValue.value.id;
+    this.userModelObj.name = this.formValue.value.name;
+    this.userModelObj.email = this.formValue.value.email;
+    this.userModelObj.title = this.formValue.value.title;
+    this.userModelObj.password = this.formValue.value.password;
+    this.userModelObj.department = this.formValue.value.department;
+    this.userModelObj.role = this.formValue.value.role;
+    this.userModelObj.status = this.formValue.value.status;
+    this.userModelObj.isactive = this.formValue.value.isactive;
+    this.userModelObj.position = this.formValue.value.position;
+
+    console.log('this.userModelObj.id: ', this.userModelObj.id)
+    console.log('this.userModelObj: ', this.userModelObj)
+
+    this.authService.updateUser(this.userModelObj, this.userModelObj.id)
+    .subscribe((res: any) =>{
+      alert("Updated Successfully")
+      let ref = document.getElementById('cancel')
+      ref?.click();
+      this.formValue.reset();
+      this.getAllUsers();
+    })
+
   }
 
   SetAccesspermission() {
-    this.service.Getaccessbyrole(this.service.getrole(), 'customer').subscribe(res => {
-      this.accessdata = res;
-      //console.log(this.accessdata);
-
-      if(this.accessdata.length>0){
-        
-        
-        this.delete=this.accessdata[0].havedelete;
-        this.LoadUser();
-      }else{
-        alert('you are not authorized to access.');
-        this.router.navigate(['']);
-      }
-
-    });
-  }
-
-  removecustomer(code: any) {
-    if(this.delete){
-      this.toastr.success('Success')
-   }else{
-     this.toastr.warning("You don't have access for Delete")
-   }
-  }
-
-
-
+      this.authService.Getaccessbyrole(this.authService.getrole(), 'customer').subscribe(res => {
+        this.userData = res;
+        //console.log(this.accessdata);
+  
+        if(this.userData.length>0){
+          this.postUserDetails();
+        }else{
+          alert('you are not authorized to access.');
+          this.router.navigate(['']);
+        }
+  
+      });
+    }
 }
+
+
+
+
+
+
+
+

@@ -341,7 +341,7 @@
           <a class="nav-link text-dark" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" *ngIf="isadmin" routerLink="/user">User</a>
+          <a class="nav-link text-dark" routerLink="/user">User</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" routerLink="/customer">Customer</a>
@@ -428,36 +428,9 @@
 
 
 
-<!-- <div class="navbar bg-primary" data-bs-theme="dark" *ngIf="isMenuVisible" role="banner">
-  <div>
-    <img
-    width="40"
-    alt="Angular Logo"
-    src="https://www.blinksonic.com/wp-content/uploads/2015/03/basic-logo-lines-768x558.png"
-  />
-  <span href="#">Dashboard</span>
-  </div>
-  
-  <div class="spacer"></div>
-  <ul class="nav justify-content-center">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" *ngIf="isadmin" routerLink="/user">User</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/customer">Customer</a>
-    </li>
-  
-  </ul>
-  
-    <div class="spacer"></div>
-    
-    <a routerLink="/login">Logout</a>
-</div> -->
 
-<footer class="text-center text-white fixed-bottom" style="background-color: #c2c2c2;">
+
+<footer class="text-center text-white fixed-bottom" style="background-color: #c2c2c2;" *ngIf="isMenuVisible" role="banner">
   <!-- Grid container -->
   <div class="container p-4 center"></div>
   <!-- Grid container -->

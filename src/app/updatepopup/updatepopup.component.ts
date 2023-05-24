@@ -34,7 +34,6 @@ export class UpdatepopupComponent implements OnInit {
     name: this.builder.control(''),
     password: this.builder.control(''),
     email: this.builder.control(''),
-    gender: this.builder.control('male'),
     role: this.builder.control('', Validators.required),
     isactive: this.builder.control(false)
   });
@@ -45,7 +44,7 @@ export class UpdatepopupComponent implements OnInit {
       console.log(this.editdata);
       this.registerform.setValue({
         id: this.editdata.id, name: this.editdata.name,
-        password: this.editdata.password, email: this.editdata.email, gender: this.editdata.gender,
+        password: this.editdata.password, email: this.editdata.email,
         role: this.editdata.role, isactive: this.editdata.isactive
       });
     });

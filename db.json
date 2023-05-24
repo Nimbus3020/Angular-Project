@@ -2,51 +2,77 @@
   "user": [
     {
       "id": "admin",
-      "name": "NT Infotech",
+      "name": "Sizwe Khumalo",
       "password": "Test$1234",
       "email": "test@gmail.com",
       "gender": "male",
       "role": "admin",
       "isactive": true,
-      "address":{
-        "area":"chennai"
+      "address": {
+        "area": "chennai"
       }
     },
     {
       "id": "testuser",
-      "name": "Test User",
-      "password": "Test@1234",
+      "name": "Chris Mcauly",
+      "status": null,
+      "action": "",
       "email": "test@in.com",
-      "gender": "male",
+      "title": "Junior",
       "role": "user",
-      "isactive": true,
-      "address":{
-        "area":"chennai"
-      }
+      "department": "Marketing",
+      "position": "Marketing Specialist",
+      "isactive": true
     },
     {
       "id": "Jhon1",
-      "name": "NT Infotech",
-      "password": "Test@1233",
+      "name": "Lwazi Gumede",
+      "status": true,
+      "action": "",
       "email": "te@in.com",
-      "gender": "male",
-      "role": "tech",
-      "isactive": true,
-      "address":{
-        "area":"chennai"
-      }
+      "title": "Senior",
+      "role": "user",
+      "department": "Finance",
+      "position": "Auditor",
+      "isactive": false
     },
     {
       "id": "ntuser",
-      "name": "ramesh",
-      "password": "Test@1234",
+      "name": "Thulani Masuku",
+      "status": true,
+      "action": "",
       "email": "te@in.com",
-      "gender": "male",
-      "role": "tech",
-      "isactive": true,
-      "address":{
-        "area":"banglore"
-      }
+      "title": "HR",
+      "role": "user",
+      "department": "Human Resources",
+      "position": "Assistant",
+      "isactive": null
+    },
+    {
+      "id": "Alex",
+      "name": "Alexis",
+      "status": true,
+      "password": "Alex@1234",
+      "action": "",
+      "email": "Alexis@gmail.com",
+      "title": "Junior",
+      "role": "admin",
+      "department": "Information Technology",
+      "position": "Software Developer",
+      "isactive": true
+    },
+    {
+      "id": "chase",
+      "name": "Chase Masondo",
+      "status": null,
+      "password": "Chase@1234",
+      "action": "",
+      "email": "chase@gmail.com",
+      "title": "Junior",
+      "role": "user",
+      "department": "Information Tchnology",
+      "position": "Software Developer",
+      "isactive": true
     }
   ],
   "role": [
@@ -73,59 +99,62 @@
     {
       "role": "admin",
       "menu": "user",
-      "haveedit":true,
-      "haveadd":true,
-      "havedelete":true
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": true
     },
     {
       "role": "admin",
       "menu": "customer",
-      "haveedit":true,
-      "haveadd":true,
-      "havedelete":true
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": true
     },
     {
       "role": "user",
       "menu": "user",
-      "haveedit":false,
-      "haveadd":false,
-      "havedelete":false
+      "haveedit": false,
+      "haveadd": false,
+      "havedelete": false
     },
     {
       "role": "user",
       "menu": "customer",
-      "haveedit":true,
-      "haveadd":true,
-      "havedelete":false
+      "haveedit": true,
+      "haveadd": true,
+      "havedelete": false
     }
-    
-    
   ],
-  "customer":[
+  "customer": [
     {
-      "id":1,
-      "name":"rakhesh",
-      "Creditlimit":1000
+      "id": 1,
+      "name": "Thembelihle",
+      "Creditlimit": 1000
     },
     {
-      "id":2,
-      "name":"rahul",
-      "Creditlimit":1000
+      "id": 2,
+      "name": "Eric",
+      "Creditlimit": 1000
     },
     {
-      "id":3,
-      "name":"ramesh",
-      "Creditlimit":1000
+      "id": 3,
+      "name": "Layla",
+      "Creditlimit": 2000
     },
     {
-      "id":4,
-      "name":"rahim",
-      "Creditlimit":1000
+      "id": 4,
+      "name": "Senzo",
+      "Creditlimit": 5000
     },
     {
-      "id":5,
-      "name":"robert",
-      "Creditlimit":1000
+      "id": 5,
+      "name": "Nandipha",
+      "Creditlimit": 2000
+    },
+    {
+      "id": 6,
+      "name": "Tshepo",
+      "Creditlimit": 1000
     }
   ]
 }
